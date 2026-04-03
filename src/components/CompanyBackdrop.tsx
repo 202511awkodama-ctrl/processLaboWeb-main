@@ -1,4 +1,4 @@
-const latticePoints = [
+const baseLatticePoints = [
   {cx: 130, cy: 120, r: 7},
   {cx: 220, cy: 164, r: 8},
   {cx: 328, cy: 124, r: 7},
@@ -10,28 +10,68 @@ const latticePoints = [
   {cx: 512, cy: 286, r: 7},
 ] as const;
 
-const latticeLines = [
-  {x1: 130, y1: 120, x2: 220, y2: 164},
-  {x1: 220, y1: 164, x2: 328, y2: 124},
-  {x1: 328, y1: 124, x2: 436, y2: 188},
-  {x1: 436, y1: 188, x2: 542, y2: 146},
-  {x1: 542, y1: 146, x2: 632, y2: 214},
-  {x1: 220, y1: 164, x2: 282, y2: 278},
-  {x1: 282, y1: 278, x2: 396, y2: 316},
-  {x1: 396, y1: 316, x2: 512, y2: 286},
-  {x1: 328, y1: 124, x2: 396, y2: 316},
-  {x1: 436, y1: 188, x2: 512, y2: 286},
+const lineConnections = [
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [1, 6],
+  [6, 7],
+  [7, 8],
+  [2, 7],
+  [3, 8],
 ] as const;
 
-const latticePlanes = [
-  "220,164 328,124 436,188 282,278",
-  "282,278 436,188 512,286 396,316",
+const planeConnections = [
+  [1, 2, 3, 6],
+  [6, 3, 8, 7],
 ] as const;
 
-const spiralPaths = [
+const baseSpiralPaths = [
   "M380 260 C420 220 486 218 522 258 C554 294 548 352 506 382 C452 420 374 410 326 356",
   "M392 228 C448 190 530 202 576 260 C626 322 618 416 546 472 C456 540 332 522 248 440",
 ] as const;
+
+function seededUnit(seed: number) {
+  const value = Math.sin(seed * 12.9898) * 43758.5453;
+  return value - Math.floor(value);
+}
+
+function seededRange(seed: number, min: number, max: number) {
+  return min + seededUnit(seed) * (max - min);
+}
+
+const latticePoints = baseLatticePoints.map((point, index) => ({
+  ...point,
+  cx: point.cx + seededRange(index + 1, -18, 18),
+  cy: point.cy + seededRange(index + 19, -16, 16),
+  delay: `${seededRange(index + 37, 0, 1.9).toFixed(2)}s`,
+  duration: `${seededRange(index + 53, 6.9, 9.8).toFixed(2)}s`,
+}));
+
+const latticeLines = lineConnections.map(([start, end], index) => ({
+  x1: latticePoints[start].cx,
+  y1: latticePoints[start].cy,
+  x2: latticePoints[end].cx,
+  y2: latticePoints[end].cy,
+  delay: `${seededRange(index + 71, 0.2, 2.5).toFixed(2)}s`,
+  duration: `${seededRange(index + 89, 7.2, 10.4).toFixed(2)}s`,
+}));
+
+const latticePlanes = planeConnections.map((indexes, index) => ({
+  points: indexes
+    .map((pointIndex) => `${latticePoints[pointIndex].cx},${latticePoints[pointIndex].cy}`)
+    .join(" "),
+  delay: `${seededRange(index + 103, 1.1, 2.8).toFixed(2)}s`,
+  duration: `${seededRange(index + 121, 7.5, 10.8).toFixed(2)}s`,
+}));
+
+const spiralPaths = baseSpiralPaths.map((path, index) => ({
+  path,
+  delay: `${seededRange(index + 139, 2.2, 4.1).toFixed(2)}s`,
+  duration: `${seededRange(index + 157, 8.2, 11.6).toFixed(2)}s`,
+}));
 
 export default function CompanyBackdrop() {
   return (
@@ -62,14 +102,17 @@ export default function CompanyBackdrop() {
         <circle className="company-backdrop__core" cx="404" cy="286" fill="url(#company-backdrop-core)" r="104" />
 
         <g className="company-backdrop__lattice">
-          {latticeLines.map((line, index) => (
+          {latticeLines.map((line) => (
             <line
               key={`${line.x1}-${line.y1}-${line.x2}-${line.y2}`}
               className="company-backdrop__line"
               stroke="url(#company-backdrop-line)"
               strokeLinecap="round"
               strokeWidth="2.5"
-              style={{ animationDelay: `${index * 0.18}s` }}
+              style={{
+                animationDelay: line.delay,
+                animationDuration: line.duration,
+              }}
               x1={line.x1}
               x2={line.x2}
               y1={line.y1}
@@ -79,34 +122,40 @@ export default function CompanyBackdrop() {
         </g>
 
         <g className="company-backdrop__planes">
-          {latticePlanes.map((points, index) => (
+          {latticePlanes.map((plane) => (
             <polygon
-              key={points}
+              key={plane.points}
               className="company-backdrop__plane"
               fill="url(#company-backdrop-plane)"
-              points={points}
-              style={{ animationDelay: `${1.1 + index * 0.6}s` }}
+              points={plane.points}
+              style={{
+                animationDelay: plane.delay,
+                animationDuration: plane.duration,
+              }}
             />
           ))}
         </g>
 
         <g className="company-backdrop__spirals">
-          {spiralPaths.map((path, index) => (
+          {spiralPaths.map((spiral, index) => (
             <path
-              key={path}
+              key={spiral.path}
               className={`company-backdrop__spiral ${index === 1 ? 'company-backdrop__spiral--outer' : ''}`}
-              d={path}
+              d={spiral.path}
               fill="none"
               stroke="url(#company-backdrop-line)"
               strokeLinecap="round"
               strokeWidth={index === 1 ? 2.2 : 2.8}
-              style={{ animationDelay: `${2.3 + index * 0.45}s` }}
+              style={{
+                animationDelay: spiral.delay,
+                animationDuration: spiral.duration,
+              }}
             />
           ))}
         </g>
 
         <g className="company-backdrop__points">
-          {latticePoints.map((point, index) => (
+          {latticePoints.map((point) => (
             <g key={`${point.cx}-${point.cy}`}>
               <circle
                 cx={point.cx}
@@ -120,7 +169,10 @@ export default function CompanyBackdrop() {
                 cy={point.cy}
                 fill="#ffffff"
                 r={point.r}
-                style={{ animationDelay: `${index * 0.16}s` }}
+                style={{
+                  animationDelay: point.delay,
+                  animationDuration: point.duration,
+                }}
               />
             </g>
           ))}
