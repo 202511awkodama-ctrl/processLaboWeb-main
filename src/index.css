@@ -118,29 +118,62 @@
   }
 }
 
-@keyframes company-backdrop-beam {
+@keyframes company-backdrop-point {
   0%,
+  18%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.14;
+  }
+
+  8% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes company-backdrop-line {
+  0%,
+  22%,
   100% {
     stroke-dasharray: 0 420;
     stroke-opacity: 0;
   }
 
-  40% {
-    stroke-dasharray: 94 326;
-    stroke-opacity: 1;
+  8%,
+  16% {
+    stroke-dasharray: 150 270;
+    stroke-opacity: 0.95;
   }
 }
 
-@keyframes company-backdrop-node {
+@keyframes company-backdrop-plane {
   0%,
+  28%,
   100% {
-    transform: scale(0.94);
-    opacity: 0.6;
+    opacity: 0;
+    transform: scale(0.92);
   }
 
-  50% {
+  12%,
+  22% {
     transform: scale(1.04);
-    opacity: 0.92;
+    opacity: 1;
+  }
+}
+
+@keyframes company-backdrop-spiral {
+  0%,
+  40%,
+  100% {
+    stroke-dasharray: 0 900;
+    stroke-opacity: 0;
+  }
+
+  18%,
+  32% {
+    stroke-dasharray: 280 620;
+    stroke-opacity: 0.95;
   }
 }
 
@@ -223,60 +256,70 @@
   position: absolute;
   border-radius: 9999px;
   filter: blur(72px);
-  opacity: 0.35;
+  opacity: 0.6;
 }
 
 .company-backdrop__glow--left {
-  top: 4rem;
-  left: -3rem;
-  width: 18rem;
-  height: 18rem;
-  background: rgba(114, 91, 32, 0.12);
+  top: 2rem;
+  left: -2rem;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(114, 91, 32, 0.18);
 }
 
 .company-backdrop__glow--right {
-  right: -5rem;
-  bottom: 2rem;
-  width: 22rem;
-  height: 22rem;
-  background: rgba(2, 36, 29, 0.08);
+  right: -4rem;
+  bottom: 1rem;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(2, 36, 29, 0.12);
 }
 
-.company-backdrop__ring {
+.company-backdrop__core {
   transform-origin: center;
+  animation: company-backdrop-point 7s ease-in-out infinite;
 }
 
-.company-backdrop__ring--primary {
-  stroke: rgba(114, 91, 32, 0.16);
-  stroke-width: 1.8;
-  stroke-dasharray: 10 16;
-  animation: company-backdrop-drift 28s linear infinite;
+.company-backdrop__lattice {
+  transform-origin: center;
+  animation: company-backdrop-drift 22s linear infinite;
 }
 
-.company-backdrop__ring--secondary {
-  stroke: rgba(2, 36, 29, 0.11);
-  stroke-width: 1.4;
-  stroke-dasharray: 4 14;
-  animation: company-backdrop-drift-reverse 34s linear infinite;
-}
-
-.company-backdrop__ring--tertiary {
-  stroke: rgba(114, 91, 32, 0.08);
-  stroke-width: 1.2;
-  stroke-dasharray: 2 18;
-  animation: company-backdrop-drift 40s linear infinite;
-}
-
-.company-backdrop__beam {
+.company-backdrop__line {
   stroke-dasharray: 0 420;
-  animation: company-backdrop-beam 6.5s ease-in-out infinite;
+  animation: company-backdrop-line 8s ease-in-out infinite;
 }
 
-.company-backdrop__node {
+.company-backdrop__planes {
   transform-origin: center;
-  stroke: rgba(232, 232, 230, 0.7);
-  stroke-width: 1.5;
-  animation: company-backdrop-node 4.8s ease-in-out infinite;
+  animation: company-backdrop-drift-reverse 24s linear infinite;
+}
+
+.company-backdrop__plane {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: company-backdrop-plane 8s ease-in-out infinite;
+}
+
+.company-backdrop__spirals {
+  transform-origin: center;
+  animation: company-backdrop-drift 20s linear infinite;
+}
+
+.company-backdrop__spiral {
+  stroke-dasharray: 0 900;
+  animation: company-backdrop-spiral 8s ease-in-out infinite;
+}
+
+.company-backdrop__spiral--outer {
+  opacity: 0.78;
+}
+
+.company-backdrop__point {
+  transform-origin: center;
+  stroke: rgba(232, 232, 230, 0.9);
+  stroke-width: 2;
+  animation: company-backdrop-point 8s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
@@ -301,13 +344,13 @@
   }
 
   .company-backdrop {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
-  .company-backdrop__ring--secondary,
-  .company-backdrop__ring--tertiary,
-  .company-backdrop__beam:nth-of-type(2),
-  .company-backdrop__beam:nth-of-type(3) {
+  .company-backdrop__spiral--outer,
+  .company-backdrop__plane:last-child,
+  .company-backdrop__line:nth-of-type(n + 8),
+  .company-backdrop__point:nth-of-type(n + 7) {
     display: none;
   }
 }
@@ -321,9 +364,13 @@
   .hero-reactor__node-glow,
   .hero-reactor__node-shell,
   .hero-reactor__core,
-  .company-backdrop__ring,
-  .company-backdrop__beam,
-  .company-backdrop__node {
+  .company-backdrop__lattice,
+  .company-backdrop__line,
+  .company-backdrop__plane,
+  .company-backdrop__spirals,
+  .company-backdrop__spiral,
+  .company-backdrop__point,
+  .company-backdrop__core {
     animation: none;
   }
 }
