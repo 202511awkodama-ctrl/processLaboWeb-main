@@ -34,3 +34,343 @@
 .ease-out-expo {
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+@keyframes hero-reactor-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hero-reactor-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes hero-reactor-pulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 0.95;
+  }
+}
+
+@keyframes hero-reactor-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hero-reactor-beam {
+  0% {
+    stroke-dasharray: 0 420;
+    stroke-opacity: 0;
+  }
+
+  30% {
+    stroke-dasharray: 84 336;
+    stroke-opacity: 1;
+  }
+
+  100% {
+    stroke-dasharray: 0 420;
+    stroke-opacity: 0;
+  }
+}
+
+@keyframes company-backdrop-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(4deg);
+  }
+}
+
+@keyframes company-backdrop-drift-reverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(0, 12px, 0) rotate(-5deg);
+  }
+}
+
+@keyframes company-backdrop-point {
+  0%,
+  18%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.14;
+  }
+
+  8% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes company-backdrop-line {
+  0%,
+  22%,
+  100% {
+    stroke-dasharray: 0 420;
+    stroke-opacity: 0;
+  }
+
+  8%,
+  16% {
+    stroke-dasharray: 150 270;
+    stroke-opacity: 0.95;
+  }
+}
+
+@keyframes company-backdrop-plane {
+  0%,
+  28%,
+  100% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  12%,
+  22% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes company-backdrop-spiral {
+  0%,
+  40%,
+  100% {
+    stroke-dasharray: 0 900;
+    stroke-opacity: 0;
+  }
+
+  18%,
+  32% {
+    stroke-dasharray: 280 620;
+    stroke-opacity: 0.95;
+  }
+}
+
+.hero-reactor {
+  position: relative;
+  animation: hero-reactor-float 6s ease-in-out infinite;
+}
+
+.hero-reactor--compact {
+  animation-duration: 7.5s;
+}
+
+.hero-reactor__halo {
+  transform-origin: center;
+  animation: hero-reactor-pulse 2.8s ease-in-out infinite;
+}
+
+.hero-reactor__orbit {
+  transform-origin: center;
+}
+
+.hero-reactor__orbit--outer {
+  animation: hero-reactor-spin 14s linear infinite;
+}
+
+.hero-reactor__orbit--inner {
+  animation: hero-reactor-spin-reverse 9s linear infinite;
+}
+
+.hero-reactor__shards {
+  transform-origin: center;
+}
+
+.hero-reactor__shard {
+  transform-origin: center;
+  animation: hero-reactor-spin 7.5s linear infinite;
+}
+
+.hero-reactor__beam {
+  stroke-dasharray: 0 420;
+  animation: hero-reactor-beam 2.3s ease-out infinite;
+}
+
+.hero-reactor__node-glow,
+.hero-reactor__node-shell {
+  transform-origin: center;
+}
+
+.hero-reactor__node-glow {
+  animation: hero-reactor-pulse 2.2s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.hero-reactor__node-shell {
+  animation: hero-reactor-pulse 2.2s ease-in-out infinite;
+}
+
+.hero-reactor__core {
+  transform-origin: center;
+  animation: hero-reactor-pulse 3.2s ease-in-out infinite;
+}
+
+.hero-reactor--compact .hero-reactor__halo {
+  opacity: 0.7;
+}
+
+.hero-reactor--compact .hero-reactor__beam {
+  animation-duration: 2.8s;
+}
+
+.hero-reactor--compact .hero-reactor__shard {
+  animation-duration: 8.5s;
+}
+
+.company-backdrop__field {
+  transform-origin: center;
+}
+
+.company-backdrop__glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.6;
+}
+
+.company-backdrop__glow--left {
+  top: 2rem;
+  left: -2rem;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(114, 91, 32, 0.18);
+}
+
+.company-backdrop__glow--right {
+  right: -4rem;
+  bottom: 1rem;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(2, 36, 29, 0.12);
+}
+
+.company-backdrop__core {
+  transform-origin: center;
+  animation: company-backdrop-point 7s ease-in-out infinite;
+}
+
+.company-backdrop__lattice {
+  transform-origin: center;
+  animation: company-backdrop-drift 22s linear infinite;
+}
+
+.company-backdrop__line {
+  stroke-dasharray: 0 420;
+  animation: company-backdrop-line 8s ease-in-out infinite;
+}
+
+.company-backdrop__planes {
+  transform-origin: center;
+  animation: company-backdrop-drift-reverse 24s linear infinite;
+}
+
+.company-backdrop__plane {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: company-backdrop-plane 8s ease-in-out infinite;
+}
+
+.company-backdrop__spirals {
+  transform-origin: center;
+  animation: company-backdrop-drift 20s linear infinite;
+}
+
+.company-backdrop__spiral {
+  stroke-dasharray: 0 900;
+  animation: company-backdrop-spiral 8s ease-in-out infinite;
+}
+
+.company-backdrop__spiral--outer {
+  opacity: 0.78;
+}
+
+.company-backdrop__point {
+  transform-origin: center;
+  stroke: rgba(232, 232, 230, 0.9);
+  stroke-width: 2;
+  animation: company-backdrop-point 8s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-reactor {
+    max-width: 24rem;
+  }
+
+  .hero-reactor__orbit--outer {
+    animation-duration: 18s;
+  }
+
+  .hero-reactor__orbit--inner {
+    animation-duration: 12s;
+  }
+
+  .hero-reactor__shard:nth-child(odd) {
+    opacity: 0.72;
+  }
+
+  .hero-reactor--compact {
+    max-width: 20rem;
+  }
+
+  .company-backdrop {
+    opacity: 0.8;
+  }
+
+  .company-backdrop__spiral--outer,
+  .company-backdrop__plane:last-child,
+  .company-backdrop__line:nth-of-type(n + 8),
+  .company-backdrop__point:nth-of-type(n + 7) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reactor,
+  .hero-reactor__halo,
+  .hero-reactor__orbit,
+  .hero-reactor__shard,
+  .hero-reactor__beam,
+  .hero-reactor__node-glow,
+  .hero-reactor__node-shell,
+  .hero-reactor__core,
+  .company-backdrop__lattice,
+  .company-backdrop__line,
+  .company-backdrop__plane,
+  .company-backdrop__spirals,
+  .company-backdrop__spiral,
+  .company-backdrop__point,
+  .company-backdrop__core {
+    animation: none;
+  }
+}

@@ -1,7 +1,10 @@
+import CompanyBackdrop from "./CompanyBackdrop";
+
 export default function Company() {
   return (
-    <section className="py-32 px-8 bg-surface-container-low" id="company">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-32 px-8 bg-surface-container-low overflow-hidden" id="company">
+      <CompanyBackdrop />
+      <div className="relative max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           <div>
             <span className="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Company Profile</span>
@@ -31,7 +34,7 @@ export default function Company() {
           </div>
 
           <div>
-            <div className="bg-surface-container-lowest p-12 relative shadow-sm border-l-4 border-secondary">
+            <div className="bg-surface-container-lowest/95 backdrop-blur-sm p-12 relative shadow-sm border-l-4 border-secondary">
               <span className="material-symbols-outlined text-secondary/10 text-8xl absolute top-6 right-6">format_quote</span>
               <h3 className="text-secondary font-bold text-lg mb-6">Our Mission</h3>
               <p className="text-2xl font-bold text-primary leading-relaxed mb-8">
@@ -43,15 +46,15 @@ export default function Company() {
             </div>
             
             <div className="grid grid-cols-3 gap-4 mt-12">
-              <div className="bg-primary p-6 text-center">
+              <div className="bg-primary/96 backdrop-blur-sm p-6 text-center">
                 <div className="text-white/60 text-[10px] tracking-widest mb-2">DIVISION 01</div>
                 <div className="text-white text-xs font-bold">コンサルティング</div>
               </div>
-              <div className="bg-primary p-6 text-center">
+              <div className="bg-primary/96 backdrop-blur-sm p-6 text-center">
                 <div className="text-white/60 text-[10px] tracking-widest mb-2">DIVISION 02</div>
                 <div className="text-white text-xs font-bold">プロダクト開発</div>
               </div>
-              <div className="bg-primary p-6 text-center">
+              <div className="bg-primary/96 backdrop-blur-sm p-6 text-center">
                 <div className="text-white/60 text-[10px] tracking-widest mb-2">DIVISION 03</div>
                 <div className="text-white text-xs font-bold">事業推進</div>
               </div>
