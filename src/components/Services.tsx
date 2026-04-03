@@ -1,3 +1,5 @@
+import AiplReactorGraphic from "./AiplReactorGraphic";
+
 export default function Services() {
   return (
     <section className="py-40 px-8 bg-surface overflow-hidden" id="services">
@@ -67,37 +69,7 @@ export default function Services() {
               </ul>
             </div>
             <div className="w-full lg:w-2/5 flex justify-center lg:justify-start">
-              <div className="relative w-full aspect-square max-w-sm scale-90">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-primary text-white rounded-full flex flex-col items-center justify-center shadow-2xl z-20">
-                    <span className="text-2xl font-extrabold tracking-widest">AIPL</span>
-                    <span className="text-[8px] font-medium opacity-70">Pipeline for Thinking</span>
-                  </div>
-                </div>
-                
-                {/* Orbital Items */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 flex flex-col items-center">
-                  <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center border border-surface-container-high text-primary font-bold text-xs">壁打ち</div>
-                  <div className="h-8 w-[1px] bg-outline-variant/40"></div>
-                </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/4 flex flex-col items-center">
-                  <div className="h-8 w-[1px] bg-outline-variant/40"></div>
-                  <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center border border-surface-container-high text-primary font-bold text-xs">実行</div>
-                </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/4 flex items-center">
-                  <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center border border-surface-container-high text-primary font-bold text-xs">判定</div>
-                  <div className="w-8 h-[1px] bg-outline-variant/40"></div>
-                </div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 flex items-center">
-                  <div className="w-8 h-[1px] bg-outline-variant/40"></div>
-                  <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center border border-surface-container-high text-primary font-bold text-xs">提案</div>
-                </div>
-
-                {/* Connecting Ellipse Decorations */}
-                <div className="absolute inset-0 border-2 border-dashed border-secondary/60 rounded-full animate-[spin_15s_linear_infinite]"></div>
-                <div className="absolute inset-4 border-2 border-dotted border-primary/40 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
-                <div className="absolute inset-8 border border-solid border-secondary/20 rounded-full animate-[spin_25s_linear_infinite]"></div>
-              </div>
+              <AiplReactorGraphic compact className="relative w-full max-w-sm scale-90" />
             </div>
           </div>
 
